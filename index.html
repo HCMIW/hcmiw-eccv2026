@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop 2026</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: #ffffff;
+      color: #2d2f31;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1280px, calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    /* ===== 导航栏：透明 -> 滚动后白色 ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: transparent;
+      border-bottom: none;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 2px 14px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 16px 0;
+      transition: padding 0.3s ease;
+    }
+
+    .logo {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      text-align: left;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #ffffff;
+      transition: color 0.3s ease, opacity 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    nav.scrolled .logo {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: 0.02em;
+      text-align: left;
+      transition: color 0.3s ease;
+    }
+
+    nav.scrolled .nav-links a {
+      color: #374151;
+    }
+
+    /* ===== Header / Hero ===== */
+    .hero-clean {
+      position: relative;
+      padding: 180px 0 124px;
+      background-image: url("./WMU landscape shot.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.52);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 940px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow-clean {
+      font-family: "Inter", sans-serif;
+      font-size: 56px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d1d5db;
+      margin-bottom: 18px;
+    }
+
+    .title-clean {
+      font-family: "Playfair Display", serif;
+      font-size: 50px;
+      line-height: 1.18;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .subtitle-clean {
+      font-family: "Inter", sans-serif;
+      font-size: 19px;
+      line-height: 1.65;
+      color: #e8eaed;
+      max-width: 860px;
+      margin: 0 auto 26px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
+    }
+
+    .meta-clean {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #f1f3f4;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
+    }
+
+    /* ===== Main ===== */
+    main {
+      padding: 52px 0 78px;
+    }
+
+    section {
+      margin-bottom: 60px;
+      scroll-margin-top: 96px;
+    }
+
+    h2 {
+      font-family: "Inter", sans-serif;
+      font-size: 28px;
+      line-height: 1.35;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      text-align: left;
+      color: #202124;
+    }
+
+    h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      line-height: 1.4;
+      font-weight: 600;
+      margin: 0 0 6px;
+      color: #202124;
+      text-align: left;
+    }
+
+    .section-intro,
+    .section-text,
+    .topics-list,
+    .submission-list,
+    .schedule-list,
+    .contact-list,
+    .speakers-grid,
+    .organizers-grid,
+    .banner {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .section-text {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #3c4043;
+      margin-bottom: 14px;
+      font-family: "Inter", sans-serif;
+    }
+
+    /* ===== 横幅图 ===== */
+    .banner {
+      margin: 26px 0 28px;
+      border: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .banner img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+    }
+
+    .banner-caption {
+      font-size: 20px;
+      color: #6b7280;
+      padding: 10px 14px;
+      border-top: 1px solid #e5e7eb;
+      background: #fafafa;
+      text-align: left;
+    }
+
+    /* ===== Important Dates ===== */
+    .important-dates-list {
+      list-style: square;
+      padding-left: 20px;
+      margin: 6px 0 0 0;
+    }
+
+    .important-dates-list li {
+      font-size: 10x;
+      font-weight: 600;
+      line-height: 1.8;
+      color: #202124;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .important-dates-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .date-highlight {
+      font-weight: 400;
+      color: #202124;
+    }
+
+    /* ===== Schedule / Contact ===== */
+    .schedule-item,
+    .contact-item {
+      padding: 13px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .contact-list {
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .contact-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 2px;
+      text-align: left;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      color: #111827;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .schedule-time {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111827;
+      text-align: left;
+    }
+
+    /* ===== 列表 ===== */
+    .topics-list,
+    .submission-list {
+      padding-left: 22px;
+      color: #374151;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .topics-list li,
+    .submission-list li {
+      margin-bottom: 9px;
+    }
+
+    /* ===== Speakers ===== */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 30px;
+      margin-top: 26px;
+      align-items: stretch;
+    }
+
+    /* ===== Organizers ===== */
+    .organizers-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 36px 28px;
+      margin-top: 24px;
+      align-items: stretch;
+    }
+
+    .speaker-item,
+    .organizer-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding: 16px 10px;
+      border-radius: 18px;
+      transition: transform 0.28s ease;
+      background: transparent;
+      height: 100%;
+    }
+
+    .speaker-item:hover,
+    .organizer-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .organizer-item.organizer-span-3 {
+      grid-column: span 3;
+    }
+
+    .organizer-item.organizer-span-4 {
+      grid-column: span 4;
+    }
+
+    .speaker-photo {
+      width: 190px;
+      height: 190px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      border: 2px solid #e5e7eb;
+      background: #f3f4f6;
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .speaker-item:hover .speaker-photo,
+    .organizer-item:hover .speaker-photo {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .speaker-item h3,
+    .organizer-item h3,
+    .speaker-item .affiliation,
+    .organizer-item .affiliation,
+    .speaker-item .small-text,
+    .organizer-item .small-text {
+      text-align: center;
+    }
+
+    .speaker-item h3,
+    .organizer-item h3 {
+      min-height: 2.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .speaker-item h3 a,
+    .organizer-item h3 a {
+      color: #111827;
+      transition: color 0.2s ease;
+    }
+
+    .speaker-item h3 a:hover,
+    .organizer-item h3 a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 22px 0 34px;
+      color: #6b7280;
+      font-size: 13px;
+      background: #ffffff;
+      text-align: left;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 1180px) {
+      .speakers-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 30px;
+        margin-top: 26px;
+        align-items: stretch;
+      }
+
+      .organizers-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 36px 28px;
+        margin-top: 24px;
+        align-items: stretch;
+      }
+
+      .speaker-photo {
+        width: 178px;
+        height: 178px;
+      }
+
+      .important-dates-list li {
+        font-size: 23px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .title-clean {
+        font-family: "Playfair Display", serif;
+        font-size: 50px;
+        line-height: 1.18;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
+      }
+
+      .subtitle-clean {
+        font-family: "Inter", sans-serif;
+        font-size: 19px;
+        line-height: 1.65;
+        color: #e8eaed;
+        max-width: 860px;
+        margin: 0 auto 26px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
+      }
+
+      .important-dates-list li {
+        font-size: 21px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        text-align: left;
+      }
+
+      .container {
+        width: min(1280px, calc(100% - 40px));
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+      }
+
+      .logo {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.02em;
+        text-align: left;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+      }
+
+      .title-clean {
+        font-family: "Playfair Display", serif;
+        font-size: 50px;
+        line-height: 1.18;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
+      }
+
+      .subtitle-clean {
+        font-family: "Inter", sans-serif;
+        font-size: 19px;
+        line-height: 1.65;
+        color: #e8eaed;
+        max-width: 860px;
+        margin: 0 auto 26px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
+      }
+
+      .meta-clean {
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        line-height: 1.7;
+        color: #f1f3f4;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
+      }
+
+      h2 {
+        font-family: "Inter", sans-serif;
+        font-size: 28px;
+        line-height: 1.35;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 14px;
+        text-align: left;
+        color: #202124;
+      }
+
+      .speakers-grid,
+      .organizers-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 36px 28px;
+        margin-top: 24px;
+        align-items: stretch;
+      }
+
+      .schedule-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .important-dates-list {
+        padding-left: 28px;
+      }
+
+      .important-dates-list li {
+        font-size: 18px;
+        line-height: 1.75;
+        margin-bottom: 16px;
+      }
+
+      .banner img {
+        height: 240px;
+      }
+
+      .speaker-photo {
+        width: 156px;
+        height: 156px;
+      }
+
+      .hero-clean {
+        padding: 150px 0 88px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="mainNav">
+    <div class="container nav-inner">
+      <div class="logo">HCMIW@ECCV2026</div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#topics">Topics</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#schedule">Program</a>
+        <a href="#submission">Call for Papers</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-clean">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="eyebrow-clean">ECCV 2026 Workshop</div>
+      <h1 class="title-clean">
+        The 1st Workshop on<br>
+        Human-Centered Multimodal Intelligence in the Wild
+      </h1>
+      <div class="subtitle-clean">
+        Foundation models and beyond for human-centered multimodal perception,
+        reasoning, and real-world deployment
+      </div>
+      <div class="meta-clean">
+        <div><strong>Date:</strong> ......2026</div>
+        <div><strong>Location:</strong> Malmö, Sweden</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <section id="overview">
+        <h2>Overview</h2>
+        <div class="section-intro">
+          <p class="section-text">
+            The emergence of multimodal foundation models (MLLMs) has catalyzed a
+            paradigm shift in human-centered vision. While traditional systems often struggle
+            with the “open-world” complexity of human behavior, the integration of
+            large-scale pre-training with cross-modal reasoning offers paths toward truly
+            adaptive intelligence. This workshop addresses the critical transition from constrained
+            benchmarks to “in-the-wild” deployment, where visual intelligence must
+            navigate the ambiguity of human intent and the noise of unstructured environments.<br>
+            The Human-Centered Multimodal Intelligence in the Wild (HCMIW)
+            workshop bridges the gap between theoretical MLLMs and practical, human-aligned
+            applications. We focus on the synergy between robust perception and
+            sophisticated reasoning, aiming to redefine how vision systems interpret human
+            presence across heterogeneous sensors and dynamic contexts. To address these
+            challenges, HCMIW invites contributions across five critical axes:
+            <br><br>
+            – <b>MLLMs for Human-Centric Tasks:</b> Novel paradigms for detection, tracking,
+            and activity understanding. We emphasize efficient adaptation and “from-scratch”
+            training tailored for real-world constraints.
+            <br>
+            – <b> Perception in Adverse Conditions:</b> Advancing robustness against “in-the-wild”
+            variables, including extreme lighting, rapid motion, severe occlusions,
+            and complex human-object interactions.
+            <br>
+            – <b> Heterogeneous Sensor Fusion:</b> Beyond RGB—leveraging Infrared, Event-based
+            cameras, LiDAR, and Thermal sensing to build a multi-spectral understanding
+            of human activity.
+            <br>
+            – <b> Generalization & Domain Transfer:</b> Strategies for bridging the gap between
+            massive general-purpose datasets and specialized, high-stakes human-centric
+            domains.
+            <br>
+            – <b> Next-Generation Benchmarking:</b> Developing “wild-first” datasets and
+            evaluation metrics that prioritize human-facing performance, safety, and reliability
+            over static accuracy.
+          </p>
+        </div>
+      </section>
+
+      <section id="topics">
+        <h2>Topics of Interest</h2>
+        <p class="section-text">
+          We welcome submissions and discussions related to, but not limited to, the following themes:
+        </p>
+        <ul class="topics-list">
+          <li>Foundation models for human-centric perception, understanding, and reasoning.</li>
+          <li>Multimodal learning for human behavior understanding, interaction analysis, and activity recognition.</li>
+          <li>Perception in adverse conditions, including low light, occlusion, motion blur, and sensor noise.</li>
+          <li>Cross-modal grounding across RGB, thermal, infrared, depth, event cameras, LiDAR, and audio.</li>
+          <li>Generalization, adaptation, robustness, and reliability in real-world human-centered systems.</li>
+          <li>Benchmarks, datasets, evaluation protocols, and deployment-oriented analysis for in-the-wild scenarios.</li>
+        </ul>
+      </section>
+
+      <section id="speakers">
+        <h2>Invited Speakers</h2>
+        
+
+        <div class="speakers-grid">
+          <div class="speaker-item">
+            <img class="speaker-photo" src="speaker/dima.jpg" alt="Speaker 1">
+            <h3><a href="https://dimadamen.github.io/">Dima Damen</a></h3>
+            <div class="affiliation">University of Bristol</div>
+          </div>
+
+          <div class="speaker-item">
+            <img class="speaker-photo" src="speaker/liuzicheng.jpg" alt="Speaker 2">
+            <h3><a href="https://sites.google.com/view/zichengliu/home?authuser=0">Zicheng Liu</a></h3>
+            <div class="affiliation">Microsoft</div>
+          </div>
+
+          <div class="speaker-item">
+            <img class="speaker-photo" src="speaker/poppe.jpg" alt="Speaker 3">
+            <h3><a href="https://www.uu.nl/staff/RWPoppe">Ronald Poppe</a></h3>
+            <div class="affiliation">Utrecht University</div>
+          </div>
+
+          <div class="speaker-item">
+            <img class="speaker-photo" src="speaker/CSKIM_20190429.jpg" alt="Speaker 4">
+            <h3><a href="https://mcl.korea.ac.kr/people/professor/">Kim Chang-Su</a></h3>
+            <div class="affiliation">Korea University</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="schedule">
+        <h2>Program</h2>
+        <p class="section-text">
+          We propose a half-day onsite workshop with a balanced structure combining invited talks, contributed papers, and interactive discussion.
+        </p>
+
+        <div class="schedule-list">
+          <div class="schedule-item">
+            <div class="schedule-time">13:30–13:40</div>
+            <div>Opening Remarks</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">13:40–14:10</div>
+            <div>Keynote 1 — Invited Speaker #1</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">14:10–14:40</div>
+            <div>Keynote 2 — Invited Speaker #2</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">14:40–14:55</div>
+            <div>Contributed Talk</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">14:55–15:55</div>
+            <div>Coffee Break & Poster Session</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">15:55–16:25</div>
+            <div>Keynote 3 — Invited Speaker #3</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">16:25–16:55</div>
+            <div>Keynote 4 — Invited Speaker #4</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">16:55–17:25</div>
+            <div>Panel Discussion</div>
+          </div>
+          <div class="schedule-item">
+            <div class="schedule-time">17:25–17:35</div>
+            <div>Award Announcement & Closing Remarks</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="submission">
+        <h2>Call for Papers</h2>
+        <p class="section-text">
+          We welcome original and previously unpublished work related to the workshop theme. Contributions may include methodological advances, benchmarks, datasets, applications, analyses of failure cases, and position papers that motivate new research directions.
+        </p>
+        <ul class="submission-list">
+          <li> <strong>Submission site:</strong> <a href="https://openreview.net/" target="_blank">OpenReview</a> </li>
+          <li> <strong>Paper format:</strong>...</li>
+          <li> <strong>Review policy:</strong> double-blind or single-blind, depending on final policy</li>
+          <li> <strong>Presentation format:</strong> poster, spotlight, or oral</li>
+        </ul>
+
+
+<!--      <section id="Important Dates">-->
+        <h3><b>Important Dates</b></h3>
+        <ul class="submission-list">
+            <li> <strong>Paper submission deadline:</strong> [TBD] </li>
+            <li> <strong>Notification to authors:</strong> [TBD] </li>
+        </ul>
+      </section>
+
+      <section id="organizers">
+        <h2>Organizers</h2>
+
+        <div class="organizers-grid">
+          <div class="organizer-item organizer-span-3">
+            <img class="speaker-photo" src="img/tu.jpg" alt="Zhigang Tu">
+            <h3><a href="http://tuzhigang.cn/English.html">Zhigang Tu</a></h3>
+            <div class="affiliation">Wuhan University</div>
+          </div>
+
+          <div class="organizer-item organizer-span-3">
+            <img class="speaker-photo" src="img/xiao.jpg" alt="Aoran Xiao">
+            <h3><a href="https://xiaoaoran.github.io/">Aoran Xiao</a></h3>
+            <div class="affiliation">Harbin Institute Of Technology</div>
+          </div>
+
+          <div class="organizer-item organizer-span-3">
+            <img class="speaker-photo" src="img/yao angela.png" alt="Angela Yao">
+            <h3><a href="https://www.comp.nus.edu.sg/~ayao/">Angela Yao</a></h3>
+            <div class="affiliation">National University of Singapore</div>
+          </div>
+
+          <div class="organizer-item organizer-span-3">
+            <img class="speaker-photo" src="img/gall.png" alt="Jürgen Gall">
+            <h3><a href="https://pages.iai.uni-bonn.de/gall_juergen/">Jürgen Gall</a></h3>
+            <div class="affiliation">University of Bonn</div>
+          </div>
+
+          <div class="organizer-item organizer-span-4">
+            <img class="speaker-photo" src="img/liujun.jpg" alt="Jun Liu">
+            <h3><a href="https://www.lancaster.ac.uk/scc/about-us/people/jun-liu2">Jun Liu</a></h3>
+            <div class="affiliation">Lancaster University</div>
+          </div>
+
+          <div class="organizer-item organizer-span-4">
+            <img class="speaker-photo" src="img/yuan.jpg" alt="Junsong Yuan">
+            <h3><a href="https://cse.buffalo.edu/~jsyuan/">Junsong Yuan</a></h3>
+            <div class="affiliation">University at Buffalo</div>
+          </div>
+
+          <div class="organizer-item organizer-span-4">
+            <img class="speaker-photo" src="img/r.jpg" alt="Hossein Rahmani">
+            <h3><a href="https://www.lancaster.ac.uk/scc/about-us/people/hossein-rahmani">Hossein Rahmani</a></h3>
+            <div class="affiliation">Lancaster University</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <div class="contact-value">...</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Website</div>
+            <div class="contact-value">
+              OpenReview:
+              <a href="https://openreview.net/" target="_blank">
+                https://openreview.net/
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>HCMIW@ECCV2026</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const nav = document.getElementById("mainNav");
+
+      function handleNavScroll() {
+        if (window.scrollY > 50) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        handleNavScroll();
+        window.addEventListener("scroll", handleNavScroll);
+      });
+    })();
+  </script>
+</body>
+</html>
