@@ -3,11 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workshop 2026</title>
+  <title>HCMIW@ECCV2026 | Human-Centered Multimodal Intelligence in the Wild</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #ffffff;
+      --text: #202124;
+      --muted: #5f6368;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+      --gold: #857100;
+      --gold-dark: #5f5200;
+      --nav-dark: #111827;
+      --max: 1180px;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -19,47 +33,48 @@
     }
 
     body {
-      font-family: "Inter", sans-serif;
+      font-family: "Inter", Arial, sans-serif;
       font-size: 16px;
       line-height: 1.75;
+      background: var(--bg);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background: #ffffff;
-      color: #2d2f31;
-      text-align: justify;
-      text-justify: inter-word;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     .container {
-      width: min(1280px, calc(100% - 64px));
+      width: min(var(--max), calc(100% - 64px));
       margin: 0 auto;
     }
 
-    /* ===== 导航栏：透明 -> 滚动后白色 ===== */
+    /* Navigation */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0 0 auto 0;
       width: 100%;
       z-index: 1000;
       background: transparent;
-      border-bottom: none;
+      border-bottom: 1px solid transparent;
       transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     nav.scrolled {
       background: rgba(255, 255, 255, 0.96);
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom-color: var(--line);
       box-shadow: 0 2px 14px rgba(15, 23, 42, 0.08);
       backdrop-filter: blur(8px);
     }
@@ -68,36 +83,40 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
+      gap: 20px;
       padding: 16px 0;
-      transition: padding 0.3s ease;
     }
 
     .logo {
-      font-family: "Inter", sans-serif;
       font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
+      font-weight: 800;
       letter-spacing: 0.02em;
-      text-align: left;
+      color: #ffffff;
+      white-space: nowrap;
       transition: color 0.3s ease;
+    }
+
+    nav.scrolled .logo {
+      color: var(--nav-dark);
     }
 
     .nav-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 18px;
-      font-family: "Inter", sans-serif;
+      justify-content: flex-end;
+      gap: 16px 20px;
       font-size: 14px;
-      font-weight: 600;
-      text-align: left;
+      font-weight: 650;
     }
 
     .nav-links a {
       position: relative;
       color: #ffffff;
       transition: color 0.3s ease, opacity 0.2s ease;
+    }
+
+    nav.scrolled .nav-links a {
+      color: #374151;
     }
 
     .nav-links a::after {
@@ -115,252 +134,191 @@
       width: 100%;
     }
 
-    nav.scrolled .logo {
-      font-family: "Inter", sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: #111827;
-      letter-spacing: 0.02em;
-      text-align: left;
-      transition: color 0.3s ease;
-    }
-
-    nav.scrolled .nav-links a {
-      color: #374151;
-    }
-
-    /* ===== Header / Hero ===== */
-    .hero-clean {
+    /* Hero */
+    .hero {
       position: relative;
       padding: 180px 0 124px;
+      min-height: 640px;
+      display: flex;
+      align-items: center;
       background-image: url("./WMU landscape shot.jpg");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
-    .hero-overlay {
+    .hero::before {
+      content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.52);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.42)),
+        radial-gradient(circle at 50% 30%, rgba(133, 113, 0, 0.22), transparent 48%);
     }
 
     .hero-content {
       position: relative;
-      z-index: 2;
-      max-width: 940px;
+      z-index: 1;
+      max-width: 960px;
       margin: 0 auto;
       text-align: center;
+      color: #ffffff;
     }
 
-    .eyebrow-clean {
-      font-family: "Inter", sans-serif;
-      font-size: 56px;
+    .eyebrow {
+      font-size: clamp(30px, 5vw, 56px);
       font-weight: 800;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #ffffff;
       margin-bottom: 18px;
       text-shadow: 0 3px 16px rgba(0, 0, 0, 0.5);
     }
 
-    .title-clean {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 52px;
-      line-height: 1.15;
+    .hero-title {
+      font-family: "Space Grotesk", "Inter", sans-serif;
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.12;
       font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #ffffff;
-      margin-bottom: 20px;
-      text-shadow: 0 4px 22px rgba(0, 0, 0, 0.38);
+      letter-spacing: -0.035em;
+      margin-bottom: 22px;
+      text-shadow: 0 4px 22px rgba(0, 0, 0, 0.4);
     }
 
-    .subtitle-clean {
-      font-family: "Inter", sans-serif;
+    .hero-subtitle {
+      max-width: 860px;
+      margin: 0 auto 28px;
       font-size: 19px;
       line-height: 1.65;
-      color: #e8eaed;
-      max-width: 860px;
-      margin: 0 auto 26px;
+      color: #eef2f7;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
     }
 
-    .meta-clean {
-      font-family: "Inter", sans-serif;
+    .hero-meta {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 14px 22px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
       font-size: 16px;
-      line-height: 1.7;
-      color: #f1f3f4;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
+      line-height: 1.6;
+      backdrop-filter: blur(6px);
     }
 
-    /* ===== Main ===== */
+    /* Main */
     main {
-      padding: 52px 0 78px;
+      padding: 56px 0 78px;
     }
 
     section {
-      margin-bottom: 60px;
+      margin-bottom: 64px;
       scroll-margin-top: 96px;
     }
 
-    h2 {
-      font-family: "Inter", sans-serif;
-      font-size: 28px;
+    .section-title {
+      margin-bottom: 16px;
+      font-size: 30px;
       line-height: 1.35;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: -0.01em;
-      margin-bottom: 14px;
-      text-align: left;
-      color: #202124;
+      color: var(--gold);
     }
 
     h3 {
-      font-family: "Inter", sans-serif;
-      font-size: 18px;
+      margin: 22px 0 8px;
+      font-size: 19px;
       line-height: 1.4;
-      font-weight: 600;
-      margin: 0 0 6px;
-      color: #202124;
-      text-align: left;
+      font-weight: 700;
+      color: var(--text);
     }
 
-    .section-intro,
-    .section-text,
-    .topics-list,
-    .submission-list,
-    .schedule-list,
-    .contact-list,
-    .speakers-grid,
-    .organizers-grid,
-    .banner {
-      width: 100%;
-      max-width: 100%;
+    p,
+    li {
+      color: #3c4043;
     }
 
     .section-text {
+      margin-bottom: 15px;
       font-size: 16px;
-      line-height: 1.75;
-      color: #3c4043;
-      margin-bottom: 14px;
-      font-family: "Inter", sans-serif;
+      line-height: 1.78;
     }
 
-    /* ===== 横幅图 ===== */
-    .banner {
-      margin: 26px 0 28px;
-      border: 1px solid #e5e7eb;
-      background: #ffffff;
+    .lead-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #ffffff, #fbfcff);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
     }
 
-    .banner img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-    }
-
-    .banner-caption {
-      font-size: 20px;
-      color: #6b7280;
-      padding: 10px 14px;
-      border-top: 1px solid #e5e7eb;
-      background: #fafafa;
-      text-align: left;
-    }
-
-    /* ===== Important Dates ===== */
-    .important-dates-list {
-      list-style: square;
-      padding-left: 20px;
-      margin: 6px 0 0 0;
-    }
-
-    .important-dates-list li {
-      font-size: 10x;
-      font-weight: 600;
-      line-height: 1.8;
-      color: #202124;
-      margin-bottom: 24px;
-      text-align: left;
-    }
-
-    .important-dates-list li:last-child {
-      margin-bottom: 0;
-    }
-
-    .date-highlight {
-      font-weight: 400;
-      color: #202124;
-    }
-
-    /* ===== Schedule / Contact ===== */
-    .schedule-item,
-    .contact-item {
-      padding: 13px 0;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .contact-list {
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .contact-label {
-      font-size: 13px;
-      color: #6b7280;
-      margin-bottom: 2px;
-      text-align: left;
-    }
-
-    .contact-value {
-      font-size: 15px;
-      color: #111827;
-      font-weight: 600;
-      text-align: left;
-    }
-
-    .schedule-item {
-      display: grid;
-      grid-template-columns: 118px 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .schedule-time {
-      font-size: 15px;
-      font-weight: 700;
-      color: #111827;
-      text-align: left;
-    }
-
-    /* ===== 列表 ===== */
+    .axis-list,
     .topics-list,
     .submission-list {
       padding-left: 22px;
+      margin-top: 12px;
       color: #374151;
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 15.5px;
+      line-height: 1.75;
     }
 
+    .axis-list li,
     .topics-list li,
     .submission-list li {
-      margin-bottom: 9px;
+      margin-bottom: 10px;
     }
 
-    /* ===== Speakers ===== */
-    .speakers-grid {
+    .topics-list li strong,
+    .axis-list li strong {
+      color: #202124;
+    }
+
+    .important-dates {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 30px;
+      gap: 12px;
+      margin: 16px 0 24px;
+    }
+
+    .date-card {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold);
+      border-radius: 14px;
+      background: var(--soft);
+      color: #202124;
+      font-weight: 650;
+    }
+
+    .note {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--gold);
+      background: #fffdf0;
+      color: #3c4043;
+    }
+
+    .text-link {
+      color: var(--gold-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Speakers and organizers */
+    .speakers-grid,
+    .organizers-grid {
+      display: grid;
+      gap: 32px 28px;
       margin-top: 26px;
       align-items: stretch;
     }
 
-    /* ===== Organizers ===== */
+    .speakers-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .organizers-grid {
-      display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 36px 28px;
-      margin-top: 24px;
-      align-items: stretch;
     }
 
     .speaker-item,
@@ -369,12 +327,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      text-align: center;
+      height: 100%;
       padding: 16px 10px;
       border-radius: 18px;
+      text-align: center;
       transition: transform 0.28s ease;
-      background: transparent;
-      height: 100%;
     }
 
     .speaker-item:hover,
@@ -382,71 +339,111 @@
       transform: translateY(-6px);
     }
 
-    .organizer-item.organizer-span-3 {
+    .organizer-span-3 {
       grid-column: span 3;
     }
 
-    .organizer-item.organizer-span-4 {
+    .organizer-span-4 {
       grid-column: span 4;
     }
 
-    .speaker-photo {
-      width: 190px;
-      height: 190px;
+    .person-photo {
+      width: 184px;
+      height: 184px;
       object-fit: cover;
       object-position: center top;
       border-radius: 50%;
       margin: 0 auto 14px;
-      border: 2px solid #e5e7eb;
+      border: 2px solid var(--line);
       background: #f3f4f6;
       transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
     }
 
-    .speaker-item:hover .speaker-photo,
-    .organizer-item:hover .speaker-photo {
+    .speaker-item:hover .person-photo,
+    .organizer-item:hover .person-photo {
       transform: translateY(-2px);
       border-color: #cbd5e1;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
     }
 
-    .speaker-item h3,
-    .organizer-item h3,
-    .speaker-item .affiliation,
-    .organizer-item .affiliation,
-    .speaker-item .small-text,
-    .organizer-item .small-text {
-      text-align: center;
-    }
-
-    .speaker-item h3,
-    .organizer-item h3 {
+    .person-name {
       min-height: 2.8em;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 0 0 6px;
       font-size: 18px;
-      margin-bottom: 6px;
-    }
-
-    .speaker-item h3 a,
-    .organizer-item h3 a {
+      line-height: 1.3;
+      font-weight: 700;
       color: #111827;
-      transition: color 0.2s ease;
+      text-align: center;
     }
 
-    .speaker-item h3 a:hover,
-    .organizer-item h3 a:hover {
-      text-decoration: underline;
+    .person-name a:hover {
+      color: var(--gold-dark);
     }
 
-    /* ===== Footer ===== */
+    .affiliation {
+      color: #5f6368;
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* Program */
+    .schedule-list {
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .schedule-time {
+      font-size: 15px;
+      font-weight: 750;
+      color: #111827;
+    }
+
+    .schedule-title {
+      color: #374151;
+    }
+
+    /* Contact */
+    .contact-list {
+      margin-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-label {
+      margin-bottom: 2px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      color: #111827;
+      font-weight: 650;
+    }
+
     footer {
-      border-top: 1px solid #e5e7eb;
-      padding: 22px 0 34px;
+      border-top: 1px solid var(--line);
+      padding: 24px 0 36px;
+      background: #ffffff;
       color: #6b7280;
       font-size: 13px;
-      background: #ffffff;
-      text-align: left;
     }
 
     .footer-wrap {
@@ -456,169 +453,74 @@
       flex-wrap: wrap;
     }
 
-    /* ===== 响应式 ===== */
-    @media (max-width: 1180px) {
+    @media (max-width: 1080px) {
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
       .speakers-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 30px;
-        margin-top: 26px;
-        align-items: stretch;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .organizers-grid {
-        display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 36px 28px;
-        margin-top: 24px;
-        align-items: stretch;
-      }
-
-      .speaker-photo {
-        width: 178px;
-        height: 178px;
-      }
-
-      .important-dates-list li {
-        font-size: 23px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .title-clean {
-        font-family: "Playfair Display", serif;
-        font-size: 50px;
-        line-height: 1.18;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        color: #ffffff;
-        margin-bottom: 20px;
-        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
-      }
-
-      .subtitle-clean {
-        font-family: "Inter", sans-serif;
-        font-size: 19px;
-        line-height: 1.65;
-        color: #e8eaed;
-        max-width: 860px;
-        margin: 0 auto 26px;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
-      }
-
-      .important-dates-list li {
-        font-size: 21px;
+      .organizer-span-3,
+      .organizer-span-4 {
+        grid-column: span 6;
       }
     }
 
     @media (max-width: 760px) {
-      body {
-        text-align: left;
-      }
-
       .container {
-        width: min(1280px, calc(100% - 40px));
+        width: min(var(--max), calc(100% - 40px));
       }
 
-      .nav-inner {
-        align-items: flex-start;
+      .hero {
+        min-height: 620px;
+        padding: 150px 0 88px;
       }
 
-      .logo {
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.02em;
-        text-align: left;
-        transition: color 0.3s ease;
+      .hero-meta {
+        border-radius: 22px;
       }
 
-      .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        text-align: left;
+      main {
+        padding-top: 42px;
       }
 
-      .title-clean {
-        font-family: "Playfair Display", serif;
-        font-size: 50px;
-        line-height: 1.18;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        color: #ffffff;
-        margin-bottom: 20px;
-        text-shadow: 0 3px 18px rgba(0, 0, 0, 0.28);
+      section {
+        margin-bottom: 52px;
       }
 
-      .subtitle-clean {
-        font-family: "Inter", sans-serif;
-        font-size: 19px;
-        line-height: 1.65;
-        color: #e8eaed;
-        max-width: 860px;
-        margin: 0 auto 26px;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
+      .section-title {
+        font-size: 27px;
       }
 
-      .meta-clean {
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        line-height: 1.7;
-        color: #f1f3f4;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
-      }
-
-      h2 {
-        font-family: "Inter", sans-serif;
-        font-size: 28px;
-        line-height: 1.35;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        margin-bottom: 14px;
-        text-align: left;
-        color: #202124;
+      .lead-card {
+        padding: 22px;
       }
 
       .speakers-grid,
       .organizers-grid {
-        display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 36px 28px;
-        margin-top: 24px;
-        align-items: stretch;
+        grid-template-columns: 1fr;
+      }
+
+      .organizer-span-3,
+      .organizer-span-4 {
+        grid-column: span 1;
+      }
+
+      .person-photo {
+        width: 156px;
+        height: 156px;
       }
 
       .schedule-item {
         grid-template-columns: 1fr;
         gap: 4px;
-      }
-
-      .important-dates-list {
-        padding-left: 28px;
-      }
-
-      .important-dates-list li {
-        font-size: 18px;
-        line-height: 1.75;
-        margin-bottom: 16px;
-      }
-
-      .banner img {
-        height: 240px;
-      }
-
-      .speaker-photo {
-        width: 156px;
-        height: 156px;
-      }
-
-      .hero-clean {
-        padding: 150px 0 88px;
       }
     }
   </style>
@@ -626,33 +528,31 @@
 <body>
   <nav id="mainNav">
     <div class="container nav-inner">
-      <div class="logo">HCMIW@ECCV2026</div>
-      <div class="nav-links">
+      <a class="logo" href="#top">HCMIW@ECCV2026</a>
+      <div class="nav-links" aria-label="Main navigation">
         <a href="#overview">Overview</a>
         <a href="#topics">Topics</a>
         <a href="#speakers">Speakers</a>
-        <a href="#schedule">Program</a>
+        <a href="#program">Program</a>
         <a href="#submission">Call for Papers</a>
         <a href="#organizers">Organizers</a>
-        <a href="#contact">Contact</a>
+<!--        <a href="#contact">Contact</a>-->
       </div>
     </div>
   </nav>
 
-  <header class="hero-clean">
-    <div class="hero-overlay"></div>
+  <header class="hero" id="top">
     <div class="container hero-content">
-      <div class="eyebrow-clean">ECCV 2026 Workshop</div>
-      <h1 class="title-clean">
+      <div class="eyebrow">ECCV 2026 Workshop</div>
+      <h1 class="hero-title">
         The 1st Workshop on<br>
         Human-Centered Multimodal Intelligence in the Wild
       </h1>
-      <div class="subtitle-clean">
-        Foundation models and beyond for human-centered multimodal perception,
-        reasoning, and real-world deployment
-      </div>
-      <div class="meta-clean">
-        <div><strong>Date:</strong> ......2026</div>
+      <p class="hero-subtitle">
+        Foundation models and beyond for human-centered multimodal perception, reasoning, and real-world deployment
+      </p>
+      <div class="hero-meta">
+        <div><strong>Date:</strong> September 8 - 9, 2026</div>
         <div><strong>Location:</strong> Malmö, Sweden</div>
       </div>
     </div>
@@ -660,234 +560,216 @@
 
   <main>
     <div class="container">
-
       <section id="overview">
-        <h2>Overview</h2>
-        <div class="section-intro">
+        <h2 class="section-title">Overview</h2>
+        <div class="lead-card">
           <p class="section-text">
-            The emergence of multimodal foundation models (MLLMs) has catalyzed a
-            paradigm shift in human-centered vision. While traditional systems often struggle
-            with the “open-world” complexity of human behavior, the integration of
-            large-scale pre-training with cross-modal reasoning offers paths toward truly
-            adaptive intelligence. This workshop addresses the critical transition from constrained
-            benchmarks to “in-the-wild” deployment, where visual intelligence must
-            navigate the ambiguity of human intent and the noise of unstructured environments.<br>
-            The Human-Centered Multimodal Intelligence in the Wild (HCMIW)
-            workshop bridges the gap between theoretical MLLMs and practical, human-aligned
-            applications. We focus on the synergy between robust perception and
-            sophisticated reasoning, aiming to redefine how vision systems interpret human
-            presence across heterogeneous sensors and dynamic contexts. To address these
-            challenges, HCMIW invites contributions across five critical axes:
-            <br><br>
-            – <b>MLLMs for Human-Centric Tasks:</b> Novel paradigms for detection, tracking,
-            and activity understanding. We emphasize efficient adaptation and “from-scratch”
-            training tailored for real-world constraints.
-            <br>
-            – <b> Perception in Adverse Conditions:</b> Advancing robustness against “in-the-wild”
-            variables, including extreme lighting, rapid motion, severe occlusions,
-            and complex human-object interactions.
-            <br>
-            – <b> Heterogeneous Sensor Fusion:</b> Beyond RGB—leveraging Infrared, Event-based
-            cameras, LiDAR, and Thermal sensing to build a multi-spectral understanding
-            of human activity.
-            <br>
-            – <b> Generalization & Domain Transfer:</b> Strategies for bridging the gap between
-            massive general-purpose datasets and specialized, high-stakes human-centric
-            domains.
-            <br>
-            – <b> Next-Generation Benchmarking:</b> Developing “wild-first” datasets and
-            evaluation metrics that prioritize human-facing performance, safety, and reliability
-            over static accuracy.
+            The emergence of multimodal foundation models (MLLMs) has catalyzed a paradigm shift in human-centered vision. While traditional systems often struggle with the open-world complexity of human behavior, the integration of large-scale pre-training with cross-modal reasoning offers paths toward truly adaptive intelligence. This workshop addresses the critical transition from constrained benchmarks to in-the-wild deployment, where visual intelligence must navigate the ambiguity of human intent and the noise of unstructured environments.
           </p>
+          <p class="section-text">
+            The Human-Centered Multimodal Intelligence in the Wild (HCMIW) workshop bridges the gap between theoretical MLLMs and practical, human-aligned applications. We focus on the synergy between robust perception and sophisticated reasoning, aiming to redefine how vision systems interpret human presence across heterogeneous sensors and dynamic contexts.
+          </p>
+          <p class="section-text">To address these challenges, HCMIW invites contributions across five critical axes:</p>
+          <ul class="axis-list">
+            <li><strong>MLLMs for Human-Centric Tasks:</strong> Novel paradigms for detection, tracking, and activity understanding, with emphasis on efficient adaptation and from-scratch training tailored for real-world constraints.</li>
+            <li><strong>Perception in Adverse Conditions:</strong> Advancing robustness against in-the-wild variables, including extreme lighting, rapid motion, severe occlusions, and complex human-object interactions.</li>
+            <li><strong>Heterogeneous Sensor Fusion:</strong> Beyond RGB—leveraging infrared, event-based cameras, LiDAR, and thermal sensing to build multi-spectral understanding of human activity.</li>
+            <li><strong>Generalization &amp; Domain Transfer:</strong> Strategies for bridging the gap between massive general-purpose datasets and specialized, high-stakes human-centric domains.</li>
+            <li><strong>Next-Generation Benchmarking:</strong> Developing wild-first datasets and evaluation metrics that prioritize human-facing performance, safety, and reliability over static accuracy.</li>
+          </ul>
         </div>
       </section>
 
       <section id="topics">
-        <h2>Topics of Interest</h2>
-        <p class="section-text">
-          We welcome submissions and discussions related to, but not limited to, the following themes:
-        </p>
+        <h2 class="section-title">Topics of Interest</h2>
+        <p class="section-text">We welcome submissions and discussions related to, but not limited to, the following themes:</p>
         <ul class="topics-list">
-          <li>Foundation models for human-centric perception, understanding, and reasoning.</li>
-          <li>Multimodal learning for human behavior understanding, interaction analysis, and activity recognition.</li>
-          <li>Perception in adverse conditions, including low light, occlusion, motion blur, and sensor noise.</li>
-          <li>Cross-modal grounding across RGB, thermal, infrared, depth, event cameras, LiDAR, and audio.</li>
-          <li>Generalization, adaptation, robustness, and reliability in real-world human-centered systems.</li>
-          <li>Benchmarks, datasets, evaluation protocols, and deployment-oriented analysis for in-the-wild scenarios.</li>
+          <li><strong>Foundation models for human-centric perception, understanding, and reasoning.</strong></li>
+          <li><strong>Multimodal learning for human behavior understanding, interaction analysis, and activity recognition.</strong></li>
+          <li><strong>Perception in adverse conditions, including low light, occlusion, motion blur, and sensor noise.</strong></li>
+          <li><strong>Cross-modal grounding across RGB, thermal, infrared, depth, event cameras, LiDAR, and audio.</strong></li>
+          <li><strong>Generalization, adaptation, robustness, and reliability in real-world human-centered systems.</strong></li>
+          <li><strong>Benchmarks, datasets, evaluation protocols, and deployment-oriented analysis for in-the-wild scenarios.</strong></li>
         </ul>
       </section>
 
       <section id="speakers">
-        <h2>Invited Speakers</h2>
-        
-
+        <h2 class="section-title">Invited Speakers</h2>
         <div class="speakers-grid">
-          <div class="speaker-item">
-            <img class="speaker-photo" src="speaker/dima.jpg" alt="Speaker 1">
-            <h3><a href="https://dimadamen.github.io/">Dima Damen</a></h3>
+          <article class="speaker-item">
+            <img class="person-photo" src="speaker/dima.jpg" alt="Dima Damen">
+            <h3 class="person-name"><a href="https://dimadamen.github.io/" target="_blank" rel="noopener">Dima Damen</a></h3>
             <div class="affiliation">University of Bristol</div>
-          </div>
+          </article>
 
-          <div class="speaker-item">
-            <img class="speaker-photo" src="speaker/liuzicheng.jpg" alt="Speaker 2">
-            <h3><a href="https://sites.google.com/view/zichengliu/home?authuser=0">Zicheng Liu</a></h3>
+          <article class="speaker-item">
+            <img class="person-photo" src="speaker/liuzicheng.jpg" alt="Zicheng Liu">
+            <h3 class="person-name"><a href="https://sites.google.com/view/zichengliu/home?authuser=0" target="_blank" rel="noopener">Zicheng Liu</a></h3>
             <div class="affiliation">Microsoft</div>
-          </div>
+          </article>
 
-          <div class="speaker-item">
-            <img class="speaker-photo" src="speaker/poppe.jpg" alt="Speaker 3">
-            <h3><a href="https://www.uu.nl/staff/RWPoppe">Ronald Poppe</a></h3>
+          <article class="speaker-item">
+            <img class="person-photo" src="speaker/poppe.jpg" alt="Ronald Poppe">
+            <h3 class="person-name"><a href="https://www.uu.nl/staff/RWPoppe" target="_blank" rel="noopener">Ronald Poppe</a></h3>
             <div class="affiliation">Utrecht University</div>
-          </div>
+          </article>
 
-          <div class="speaker-item">
-            <img class="speaker-photo" src="speaker/CSKIM_20190429.jpg" alt="Speaker 4">
-            <h3><a href="https://mcl.korea.ac.kr/people/professor/">Kim Chang-Su</a></h3>
+          <article class="speaker-item">
+            <img class="person-photo" src="speaker/CSKIM_20190429.jpg" alt="Kim Chang-Su">
+            <h3 class="person-name"><a href="https://mcl.korea.ac.kr/people/professor/" target="_blank" rel="noopener">Kim Chang-Su</a></h3>
             <div class="affiliation">Korea University</div>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section id="schedule">
-        <h2>Program</h2>
-        <p class="section-text">
-          We propose a half-day onsite workshop with a balanced structure combining invited talks, contributed papers, and interactive discussion.
-        </p>
-
-        <div class="schedule-list">
-          <div class="schedule-item">
-            <div class="schedule-time">13:30–13:40</div>
-            <div>Opening Remarks</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">13:40–14:10</div>
-            <div>Keynote 1 — Invited Speaker #1</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">14:10–14:40</div>
-            <div>Keynote 2 — Invited Speaker #2</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">14:40–14:55</div>
-            <div>Contributed Talk</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">14:55–15:55</div>
-            <div>Coffee Break & Poster Session</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">15:55–16:25</div>
-            <div>Keynote 3 — Invited Speaker #3</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">16:25–16:55</div>
-            <div>Keynote 4 — Invited Speaker #4</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">16:55–17:25</div>
-            <div>Panel Discussion</div>
-          </div>
-          <div class="schedule-item">
-            <div class="schedule-time">17:25–17:35</div>
-            <div>Award Announcement & Closing Remarks</div>
-          </div>
-        </div>
+      <section id="program">
+        <h2 class="section-title">Program</h2>
+        <p class="section-text">We propose a half-day onsite workshop featuring a balanced program of invited talks, contributed papers, and interactive discussions. The detailed schedule will be announced at a later date.</p>
+<!--        <div class="schedule-list">-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">13:30–13:40</div>-->
+<!--            <div class="schedule-title">Opening Remarks</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">13:40–14:10</div>-->
+<!--            <div class="schedule-title">Keynote 1 — Invited Speaker #1</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">14:10–14:40</div>-->
+<!--            <div class="schedule-title">Keynote 2 — Invited Speaker #2</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">14:40–14:55</div>-->
+<!--            <div class="schedule-title">Contributed Talk</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">14:55–15:55</div>-->
+<!--            <div class="schedule-title">Coffee Break &amp; Poster Session</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">15:55–16:25</div>-->
+<!--            <div class="schedule-title">Keynote 3 — Invited Speaker #3</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">16:25–16:55</div>-->
+<!--            <div class="schedule-title">Keynote 4 — Invited Speaker #4</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">16:55–17:25</div>-->
+<!--            <div class="schedule-title">Panel Discussion</div>-->
+<!--          </div>-->
+<!--          <div class="schedule-item">-->
+<!--            <div class="schedule-time">17:25–17:35</div>-->
+<!--            <div class="schedule-title">Award Announcement &amp; Closing Remarks</div>-->
+<!--          </div>-->
+<!--        </div>-->
       </section>
 
       <section id="submission">
-        <h2>Call for Papers</h2>
+        <h2 class="section-title">Call for Papers</h2>
+        <h3>Important Dates</h3>
+        <div class="important-dates">
+          <div class="date-card">Paper submission deadline: Jul 01, 2026, 23:59 GMT+2</div>
+          <div class="date-card">Notification to authors: Aug 01, 2026, 23:59 GMT+2</div>
+          <div class="date-card">Camera-ready deadline: Aug 15, 2026, 23:59 GMT+2</div>
+        </div>
+
+        <h3>Submission Instructions</h3>
         <p class="section-text">
-          We welcome original and previously unpublished work related to the workshop theme. Contributions may include methodological advances, benchmarks, datasets, applications, analyses of failure cases, and position papers that motivate new research directions.
+          <strong>We are following the ECCV paper format:</strong>
+          <a class="text-link" href="https://eccv2024.ecva.net/Conferences/2026/AuthorGuide" target="_blank" rel="noopener">ECCV 2026 Author Guidelines</a>.
         </p>
-        <ul class="submission-list">
-          <li> <strong>Submission site:</strong> <a href="https://openreview.net/" target="_blank">OpenReview</a> </li>
-          <li> <strong>Paper format:</strong>...</li>
-          <li> <strong>Review policy:</strong> double-blind or single-blind, depending on final policy</li>
-          <li> <strong>Presentation format:</strong> poster, spotlight, or oral</li>
-        </ul>
+        <p class="section-text">
+          LaTeX/Word templates:
+          <a class="text-link" href="https://eccv.ecva.net/Conferences/2026/SubmissionPolicies" target="_blank" rel="noopener">ECCV 2026 Paper Template</a>.
+        </p>
 
+        <div class="note">
+          <strong>We only accept short papers.</strong> Papers should not exceed <strong>14 pages, excluding references</strong>. All requirements are the same as the ECCV paper style guide. Papers are for presenting mature works only and should include full experiments and analyses to support the proposed ideas.
+        </div>
 
-<!--      <section id="Important Dates">-->
-        <h3><b>Important Dates</b></h3>
-        <ul class="submission-list">
-            <li> <strong>Paper submission deadline:</strong> [TBD] </li>
-            <li> <strong>Notification to authors:</strong> [TBD] </li>
-        </ul>
+        <p class="section-text">The page limit includes figures and tables in the ECCV style. Additional pages containing only cited references are allowed. Papers with more than 14 pages, excluding references, will be rejected without review.</p>
+        <p class="section-text">A paper should be submitted using the above templates. The length should match that intended for final publication.</p>
+        <p class="section-text"><strong>Blind review:</strong> We adopt double-blind review for this workshop. Submitted papers and supplementary materials should not reveal any information about the author.</p>
+        <p class="section-text"><strong>Dual submission:</strong> We do not accept paper submissions that have been published, including at the ECCV main conference, or are under review for other conferences or workshops. Accepted papers are expected to be published in ECCV proceedings.</p>
+
+        <h3>Submission Website</h3>
+        <p class="section-text">
+          Submission site:
+          <a class="text-link" href="https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW" target="_blank" rel="noopener">https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW</a>
+        </p>
       </section>
 
       <section id="organizers">
-        <h2>Organizers</h2>
-
+        <h2 class="section-title">Organizers</h2>
         <div class="organizers-grid">
-          <div class="organizer-item organizer-span-3">
-            <img class="speaker-photo" src="img/tu.jpg" alt="Zhigang Tu">
-            <h3><a href="http://tuzhigang.cn/English.html">Zhigang Tu</a></h3>
+          <article class="organizer-item organizer-span-3">
+            <img class="person-photo" src="img/tu.jpg" alt="Zhigang Tu">
+            <h3 class="person-name"><a href="http://tuzhigang.cn/English.html" target="_blank" rel="noopener">Zhigang Tu</a></h3>
             <div class="affiliation">Wuhan University</div>
-          </div>
+          </article>
 
-          <div class="organizer-item organizer-span-3">
-            <img class="speaker-photo" src="img/xiao.jpg" alt="Aoran Xiao">
-            <h3><a href="https://xiaoaoran.github.io/">Aoran Xiao</a></h3>
-            <div class="affiliation">Harbin Institute Of Technology</div>
-          </div>
+          <article class="organizer-item organizer-span-3">
+            <img class="person-photo" src="img/xiao.jpg" alt="Aoran Xiao">
+            <h3 class="person-name"><a href="https://xiaoaoran.github.io/" target="_blank" rel="noopener">Aoran Xiao</a></h3>
+            <div class="affiliation">Harbin Institute of Technology</div>
+          </article>
 
-          <div class="organizer-item organizer-span-3">
-            <img class="speaker-photo" src="img/yao angela.png" alt="Angela Yao">
-            <h3><a href="https://www.comp.nus.edu.sg/~ayao/">Angela Yao</a></h3>
+          <article class="organizer-item organizer-span-3">
+            <img class="person-photo" src="img/yao angela.png" alt="Angela Yao">
+            <h3 class="person-name"><a href="https://www.comp.nus.edu.sg/~ayao/" target="_blank" rel="noopener">Angela Yao</a></h3>
             <div class="affiliation">National University of Singapore</div>
-          </div>
+          </article>
 
-          <div class="organizer-item organizer-span-3">
-            <img class="speaker-photo" src="img/gall.png" alt="Jürgen Gall">
-            <h3><a href="https://pages.iai.uni-bonn.de/gall_juergen/">Jürgen Gall</a></h3>
+          <article class="organizer-item organizer-span-3">
+            <img class="person-photo" src="img/gall.png" alt="Jürgen Gall">
+            <h3 class="person-name"><a href="https://pages.iai.uni-bonn.de/gall_juergen/" target="_blank" rel="noopener">Jürgen Gall</a></h3>
             <div class="affiliation">University of Bonn</div>
-          </div>
+          </article>
 
-          <div class="organizer-item organizer-span-4">
-            <img class="speaker-photo" src="img/liujun.jpg" alt="Jun Liu">
-            <h3><a href="https://www.lancaster.ac.uk/scc/about-us/people/jun-liu2">Jun Liu</a></h3>
+          <article class="organizer-item organizer-span-4">
+            <img class="person-photo" src="img/r.jpg" alt="Hossein Rahmani">
+            <h3 class="person-name"><a href="https://www.lancaster.ac.uk/scc/about-us/people/hossein-rahmani" target="_blank" rel="noopener">Hossein Rahmani</a></h3>
             <div class="affiliation">Lancaster University</div>
-          </div>
+          </article>
 
-          <div class="organizer-item organizer-span-4">
-            <img class="speaker-photo" src="img/yuan.jpg" alt="Junsong Yuan">
-            <h3><a href="https://cse.buffalo.edu/~jsyuan/">Junsong Yuan</a></h3>
+          <article class="organizer-item organizer-span-4">
+            <img class="person-photo" src="img/liujun.jpg" alt="Jun Liu">
+            <h3 class="person-name"><a href="https://www.lancaster.ac.uk/scc/about-us/people/jun-liu2" target="_blank" rel="noopener">Jun Liu</a></h3>
+            <div class="affiliation">Lancaster University</div>
+          </article>
+
+          <article class="organizer-item organizer-span-4">
+            <img class="person-photo" src="img/yuan.jpg" alt="Junsong Yuan">
+            <h3 class="person-name"><a href="https://cse.buffalo.edu/~jsyuan/" target="_blank" rel="noopener">Junsong Yuan</a></h3>
             <div class="affiliation">University at Buffalo</div>
-          </div>
-
-          <div class="organizer-item organizer-span-4">
-            <img class="speaker-photo" src="img/r.jpg" alt="Hossein Rahmani">
-            <h3><a href="https://www.lancaster.ac.uk/scc/about-us/people/hossein-rahmani">Hossein Rahmani</a></h3>
-            <div class="affiliation">Lancaster University</div>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section id="contact">
-        <h2>Contact</h2>
-        <div class="contact-list">
-          <div class="contact-item">
-            <div class="contact-label">Email</div>
-            <div class="contact-value">...</div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-label">Website</div>
-            <div class="contact-value">
-              OpenReview:
-              <a href="https://openreview.net/" target="_blank">
-                https://openreview.net/
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+<!--      <section id="contact">-->
+<!--        <h2 class="section-title">Contact</h2>-->
+<!--        <div class="contact-list">-->
+<!--          <div class="contact-item">-->
+<!--            <div class="contact-label">Email</div>-->
+<!--            <div class="contact-value">TBA</div>-->
+<!--          </div>-->
+<!--          <div class="contact-item">-->
+<!--            <div class="contact-label">Website</div>-->
+<!--            <div class="contact-value">-->
+<!--              OpenReview:-->
+<!--              <a class="text-link" href="https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW" target="_blank" rel="noopener">https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
     </div>
   </main>
 
   <footer>
     <div class="container footer-wrap">
       <div>HCMIW@ECCV2026</div>
+      <div>The 1st Workshop on Human-Centered Multimodal Intelligence in the Wild</div>
     </div>
   </footer>
 
@@ -905,7 +787,7 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         handleNavScroll();
-        window.addEventListener("scroll", handleNavScroll);
+        window.addEventListener("scroll", handleNavScroll, { passive: true });
       });
     })();
   </script>
