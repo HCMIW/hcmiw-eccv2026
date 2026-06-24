@@ -255,7 +255,8 @@
 
     .axis-list,
     .topics-list,
-    .submission-list {
+    .submission-list,
+    .news-list {
       padding-left: 22px;
       margin-top: 12px;
       color: #374151;
@@ -265,7 +266,8 @@
 
     .axis-list li,
     .topics-list li,
-    .submission-list li {
+    .submission-list li,
+    .news-list li {
       margin-bottom: 10px;
     }
 
@@ -288,6 +290,18 @@
       background: var(--soft);
       color: #202124;
       font-weight: 650;
+    }
+
+    .old-date {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-thickness: 1.5px;
+      margin-right: 8px;
+    }
+
+    .new-date {
+      color: #202124;
+      font-weight: 800;
     }
 
     .note {
@@ -531,6 +545,7 @@
       <a class="logo" href="#top">HCMIW@ECCV2026</a>
       <div class="nav-links" aria-label="Main navigation">
         <a href="#overview">Overview</a>
+        <a href="#news">News</a>
         <a href="#topics">Topics</a>
         <a href="#speakers">Speakers</a>
         <a href="#program">Program</a>
@@ -578,6 +593,14 @@
             <li><strong>Next-Generation Benchmarking:</strong> Developing wild-first datasets and evaluation metrics that prioritize human-facing performance, safety, and reliability over static accuracy.</li>
           </ul>
         </div>
+      </section>
+
+      <section id="news">
+        <h2 class="section-title">News and Updates</h2>
+        <ul class="news-list">
+          <li><strong>Jun 24, 2026:</strong> We have extended the submission deadline to Jul 15, 2026, 23:59 GMT+2.</li>
+          <li><strong>Jun 01, 2026:</strong> Paper submission is open at <a class="text-link" href="https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW" target="_blank" rel="noopener">https://openreview.net/group?id=thecvf.com/ECCV/2026/Workshop/HCMIW</a>.</li>
+        </ul>
       </section>
 
       <section id="topics">
@@ -669,7 +692,7 @@
         <h2 class="section-title">Call for Papers</h2>
         <h3>Important Dates</h3>
         <div class="important-dates">
-          <div class="date-card">Paper submission deadline: Jul 01, 2026, 23:59 GMT+2</div>
+          <div class="date-card">Paper submission deadline: <span class="old-date">Jul 01, 2026, 23:59 GMT+2</span><span class="new-date">Jul 15, 2026, 23:59 GMT+2</span></div>
           <div class="date-card">Notification to authors: Aug 01, 2026, 23:59 GMT+2</div>
           <div class="date-card">Camera-ready deadline: Aug 15, 2026, 23:59 GMT+2</div>
         </div>
